@@ -1,40 +1,38 @@
-import React, { Component } from "react";
+import React from "react";
 
 // importamos redux
 import { Field, reduxForm } from "redux-form";
 
 // para dirigir a otra pagina
 import { withRouter } from "react-router-dom";
-class SearchBar extends Component {
-  handleFormSubmit = function ({ query }) {
+
+// para disparar acciones
+import { useDispatch } from "react-redux";
+
+const SearchBar = (props) => {
+  const handleFormSubmit = ({ query }) => {
     console.log("HandleSubmit for query: ", query);
     //Navegar a otra ruta
-    this.props.history.push("/results");
+    props.history.push("/results");
   };
 
-  renderInput(field) {
+  const renderInput = (field) => {
     return (
       <input type="text" placeholder="Search DailySmarty" {...field.input} />
     );
-  }
+  };
 
-  render() {
-    const { handleSubmit } = this.props;
+  const { handleSubmit } = props;
 
-    return (
-      <form
-        className="search-bar"
-        onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}
-      >
-        <Field name="query" component={this.renderInput} />
-      </form>
-    );
-  }
-}
-SearchBar = reduxForm({
+  return (
+    <form className="search-bar" onSubmit={handleSubmit(handleFormSubmit)}>
+      <Field name="query" component={renderInput} />
+    </form>
+  );
+};
+
+const decoratedSearchBar = reduxForm({
   form: "searchBar",
 })(SearchBar);
 
-SearchBar = withRouter(SearchBar);
-
-export default SearchBar;
+export default withRouter(decoratedSearchBar);

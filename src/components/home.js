@@ -1,19 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Logo from "./logo";
 import SearchBar from "./searchBar";
 import RecentPosts from "./recentPosts";
 
-export default class Home extends Component {
-  render() {
-    return (
+const Home = (props) => {
+  return (
+    <div>
       <div>
-        <div>
-          <Logo />
-          <SearchBar />
-          <RecentPosts />
-        </div>
+        <Logo />
+        <SearchBar />
+        <RecentPosts />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+export default Home;
