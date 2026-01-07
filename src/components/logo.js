@@ -5,7 +5,11 @@ import { CiGlobe } from "react-icons/ci";
 const Logo = () => {
   return (
     <div className="logo-main">
-      <CiGlobe size="40px" color="darkturquoise" />
+      <span className="logo-title">Hacker</span>
+      <a href="#">
+        <CiGlobe size="70px" color="darkturquoise" />
+      </a>
+      <span className="logo-title">News</span>
     </div>
   );
 };

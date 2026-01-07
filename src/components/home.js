@@ -6,8 +6,8 @@ import RecentPosts from "./recentPosts";
 
 const Home = (props) => {
   return (
-    <div>
-      <div>
+    <div className="app-wrapper">
+      <div className="component-wapper">
         <Logo />
         <SearchBar />
         <RecentPosts />

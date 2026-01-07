@@ -17,15 +17,25 @@ let RecentPosts = (props) => {
     dispatch(actions.fetchRecentPosts());
   }, [dispatch]);
 
+  // mostramos los  6 posts mas recientes
+  const renderRecentPosts = () => {
+    return recentPosts.map((post, index) => {
+      return (
+        <div className="posts-post" key={post.id || index}>
+          <a href={post.url} target="_blank">
+            {" "}
+            {post.title}
+          </a>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="recent-posts">
       <div className="recent-posts__wrapper">
         <div className="recent-posts__heading">Recent Posts</div>
-        <ul className="recent-posts__posts">
-          <li>recent post 0</li>
-          <li>recent post 1</li>
-          <li>recent post 2</li>
-        </ul>
+        <div className="recent-posts__posts">{renderRecentPosts()}</div>
       </div>
     </div>
   );

@@ -18,7 +18,11 @@ const SearchBar = (props) => {
 
   const renderInput = (field) => {
     return (
-      <input type="text" placeholder="Search DailySmarty" {...field.input} />
+      <input
+        type="text"
+        placeholder="Search storys in hacker news.."
+        {...field.input}
+      />
     );
   };
 
