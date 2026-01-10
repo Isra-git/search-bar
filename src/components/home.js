@@ -6,13 +6,13 @@ import RecentPosts from "./recentPosts";
 
 const Home = (props) => {
   return (
-    <div className="app-wrapper">
-      <div className="component-wapper">
-        <Logo />
-        <SearchBar />
-        <RecentPosts />
-      </div>
+    //<div className="app-home-wrapper">
+    <div className="component-wapper">
+      <Logo />
+      <SearchBar />
+      <RecentPosts />
     </div>
+    //</div>
   );
 };
 export default Home;
