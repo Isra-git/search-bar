@@ -23,7 +23,6 @@ let RecentPosts = (props) => {
       return (
         <div className="posts-post" key={post.id || index}>
           <a href={post.url} target="_blank">
-            {" "}
             {post.title}
           </a>
         </div>
