@@ -1,11 +1,20 @@
 import React from "react";
 import Logo from "./logo";
+import SearchBar from "./searchBar";
+import ResultsSearchPosts from "./resultsSearchPosts";
 
 const Results = () => {
   return (
-    <div>
-      <h1>Results</h1>
-      <Logo />
+    <div className="results-wrapper">
+      <div className="results-logo">
+        <Logo size={40} />
+      </div>
+      <div className="result-search-bar">
+        <SearchBar />
+      </div>
+      <div className="result-search-posts">
+        <ResultsSearchPosts />
+      </div>
     </div>
   );
 };

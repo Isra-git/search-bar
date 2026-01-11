@@ -11,8 +11,11 @@ const urlRecentPost = "https://hacker-news.firebaseio.com/v0/item/${id}.json";
 
 // definimos el tipo como una constante
 export const SET_RECENT_POSTS = "SET_RECENT_POSTS";
+export const SET_RESULT_POSTS = "SET_RESULT_POSTS";
+export const SET_RESULTS_LOADING = "SET_RESULTS_LOADING"; // estado de carga
 
 /*-- perform a request of https://hn.algolia.com/api/v1/search?tags='tag' -- */
+/*-- To get the 6 recent posts --*/
 export function fetchRecentPosts() {
   return async function (dispatch) {
     // hacemos la peticion de los ultimos posts-->
@@ -45,3 +48,43 @@ export function fetchRecentPosts() {
   };
 }
 /*-------------fin fetchRecentPosts--------------------- */
+
+/*-------------fetchResultPosts--------------------- */
+export function fetchResultPosts({ query }) {
+  return async function (dispatch) {
+    // activamos el estado de carga
+
+    dispatch({
+      type: SET_RESULTS_LOADING,
+      payload: true, // isLoading
+    });
+
+    // hacemos la peticion de busqueda
+    try {
+      // la api de Algolia devuelve un objeto {hits} con la respuesta
+      const response = await axios.get(
+        `https://hn.algolia.com/api/v1/search?query=${query}`
+      );
+
+      // logeamos la respuesta
+      console.log("Respuesta a la busqueda: ", response.data.hits);
+
+      // ENVIAMOS los datos al REDUCER
+      dispatch({
+        type: SET_RESULT_POSTS,
+        payload: response.data.hits,
+      });
+    } catch (error) {
+      // logeamos el error
+      console.log("Error en la busqueda: ", error);
+
+      // EN CASO DE ERROR, Apagamos el spinner manualmente
+      dispatch({
+        type: SET_RESULTS_LOADING,
+        payload: false,
+      });
+    }
+  };
+}
+
+/*-------------fin fetchResultPosts--------------------- */
