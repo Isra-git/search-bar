@@ -6,12 +6,6 @@ import { Field, reduxForm } from "redux-form";
 // para dirigir a otra pagina
 import { withRouter } from "react-router-dom";
 
-// para disparar acciones
-import { useDispatch } from "react-redux";
-
-// importamos las acciones
-import * as actions from "../actions";
-
 /* --  funcion renderInput para renderizar el input en redux-form -- */
 const renderInput = (field) => {
   // desesctructuramos los valores del input que necesitamos
@@ -37,20 +31,18 @@ const SearchBar = (props) => {
   // creamos la referencia para el autofocus de la barra
   const inputRef = useRef(null);
 
-  // inicializamos el dispatch
-  const dispatch = useDispatch();
+  const handleFormSubmit = (query) => {
+    // if (event) event.preventDefault();
+    // console.log("HandleSubmit for query: ", query);
 
-  const handleFormSubmit = ({ query }) => {
-    if (event) event.preventDefault();
-    console.log("HandleSubmit for query: ", query);
+    // // disparamos la accion de busqueda con la {query} del usuario
+    // dispatch(actions.fetchResultPosts({ query }));
 
-    // disparamos la accion de busqueda con la {query} del usuario
-    dispatch(actions.fetchResultPosts({ query }));
-
-    //Navegar a /results, si no estamos en ella
-    if (props.location.pathname !== "/results") {
-      props.history.push("/results");
-    }
+    // //Navegar a /results, si no estamos en ella
+    // if (props.location.pathname !== "/results") {
+    //   props.history.push("/results");
+    // }
+    props.handleSearchSubmit(query);
   };
 
   // cuando se monta el componente usamos la Ref, para darle el foco
