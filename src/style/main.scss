@@ -189,49 +189,14 @@ body {
   }
 
   /*------------inicio resultSearchPosts*/
-  // .results-search-posts-wrapper {
-  //   margin-top: 20px;
-  //   width: 100%;
-  //   height: auto;
 
-  //   .results-search-posts {
-  //     display: grid;
-  //     grid-template-columns: 1fr;
-  //     gap: 20px;
-  //     padding: 20px;
-
-  //     .results-search {
-  //       display: grid;
-  //       grid-gap: 20px;
-  //       .results {
-  //         @include texto_busqueda;
-  //         a {
-  //           text-decoration: none;
-  //           cursor: pointer;
-  //           &:hover {
-  //             font-weight: 600;
-  //             color: darkslategray;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  // .results-search-posts-wrapper {
-  //   display: grid;
-  //   //Creamos una columna lateral de 250px y el resto para los posts
-  //   grid-template-columns: 250px 1fr;
-  //   gap: 30px;
-  //   max-width: 1200px; // Evita que se estire infinito en pantallas gigantes
-  //   margin: 0 auto;
   .results-search-posts {
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px; // Aumentamos el espacio entre tarjetas
-    padding: 20px;
-    margin-top: 3em;
-    // spinner
+    //padding: 20px;
 
+    // spinner
     .results-loading {
       display: flex;
       flex-direction: column;
@@ -325,6 +290,64 @@ body {
           }
         }
       }
+    }
+  }
+  /*  division en dos columnas*/
+  /* --- Layout de Dos Columnas para Resultados --- */
+  .results-content-container {
+    display: grid;
+    // Definimos 250px para el lateral y el resto (1fr) para los posts
+    grid-template-columns: 250px 1fr 250px;
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 40px;
+    align-items: start;
+
+    /* La columna lateral */
+    .results-sidebar {
+      grid-column: 1;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      height: fit-content;
+
+      .sidebar-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #daa520;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+    }
+
+    /* La columna de los resultados (donde ya tienes tus tarjetas) */
+    .result-search-posts {
+      grid-column: 2;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      .results-search-posts {
+        max-width: 800px; // Controla el ancho de las tarjetas para que no se estiren demasiado
+        width: 100%;
+      }
+
+      //margin-top: 0; // Quitamos el margen superior que tenías para que alinee con el sidebar
+    }
+    /* Creamos un espacio vacío a la derecha para equilibrar el peso visual */
+    &::after {
+      content: "";
+      grid-column: 3;
+      width: 250px;
     }
   }
   /*------------fin resultSearchPosts*/
