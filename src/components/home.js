@@ -17,7 +17,7 @@ const Home = (props) => {
     console.log("HandleSubmit for query: ", query);
 
     // disparamos la accion de busqueda con la {query} del usuario
-    dispatch(actions.fetchResultPosts({ query }));
+    dispatch(actions.fetchResultPosts(query));
 
     //Navegar a /results, si no estamos en ella
     if (props.location.pathname !== "/results") {
@@ -26,7 +26,7 @@ const Home = (props) => {
   };
   return (
     //<div className="app-home-wrapper">
-    <div className="component-wapper">
+    <div className="component-wrapper">
       <Logo />
       <SearchBar handleSearchSubmit={(query) => handleSearchSubmit(query)} />
       <RecentPosts />

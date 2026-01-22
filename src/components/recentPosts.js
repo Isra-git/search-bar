@@ -19,9 +19,9 @@ let RecentPosts = (props) => {
 
   // mostramos los  6 posts mas recientes
   const renderRecentPosts = () => {
-    return recentPosts.map((post, index) => {
+    return recentPosts.map((post) => {
       return (
-        <div className="posts-post" key={post.id || index}>
+        <div className="posts-post" key={post.objectID}>
           <a href={post.url} target="_blank">
             {post.title}
           </a>

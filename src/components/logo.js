@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import { CiGlobe } from "react-icons/ci";
 
 const Logo = (props) => {
@@ -8,9 +10,9 @@ const Logo = (props) => {
   return (
     <div className="logo-main">
       <span className="logo-title">Hacker</span>
-      <a href="#">
+      <Link to="/">
         <CiGlobe size={logoSize} color="darkturquoise" />
-      </a>
+      </Link>
       <span className="logo-title">News</span>
     </div>
   );
