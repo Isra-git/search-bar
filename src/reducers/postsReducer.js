@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   recentPosts: [], // datos de posts mas recientes
   resultsPosts: [], // resultados de la query del usuario
   isLoading: false, // Estado de carga
+  sortBy: "story_id",
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -29,6 +30,13 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         isLoading: action.payload, // Recibimos true al empezar, false si falla
+      };
+
+    // Estado para ordenar los resultados de la busqueda
+    case "SET_SORT_BY":
+      return {
+        ...state,
+        sortBy: action.payload,
       };
 
     default:

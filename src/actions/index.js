@@ -114,3 +114,12 @@ export function fetchResultPosts({ query }) {
 }
 
 /*-------------fin fetchResultPosts--------------------- */
+
+/* ---------- inicio setSortBy */
+export function setSortBy(criterion) {
+  return {
+    type: "SET_SORT_BY",
+    payload: criterion,
+  };
+}
+/* ---------- fin setSortBy */

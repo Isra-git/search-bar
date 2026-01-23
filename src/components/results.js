@@ -1,20 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "../actions";
 
 import Logo from "./logo";
 import SearchBar from "./searchBar";
 import ResultsSearchPosts from "./resultsSearchPosts";
-
-import { MdManageSearch } from "react-icons/md";
+import SidebarFilter from "./sidebarFilter";
+import SidebarTags from "./sidebarTags";
 
 const Results = (props) => {
   // inicializamos el dispatch
   const dispatch = useDispatch();
 
-  const handleFormSubmit = (query) => {
-    dispatch(actions.fetchResultPosts(query));
+  useEffect(() => {
+    // Realiza la busqueda y gestiona la Persistencia (por url)
+    const queryParams = new URLSearchParams(window.location.search);
+    const queryValue = queryParams.get("query");
+
+    // si hay una query en la url
+    if (queryValue) {
+      console.log("Detectado cambio en url, buscando: ", queryValue);
+
+      dispatch(actions.fetchResultPosts({ query: queryValue }));
+    }
+  }, [props.location.search, dispatch]);
+
+  const handleFormSubmit = (newQuery) => {
+    const queryText = newQuery.query;
+    console.log("navegando a :", queryText);
+
+    if (queryText) {
+      props.history.push(`/results?query=${queryText}`);
+    }
   };
+
   return (
     <div className="results-wrapper">
       <div className="results-logo">
@@ -26,16 +46,11 @@ const Results = (props) => {
       <div className="results-content-container">
         {/* columna izquierda*/}
         <aside className="results-sidebar">
-          <div className="sidebar-title">
-            <span>Filtros de Busqueda</span>
-            <span>
-              <MdManageSearch size={25} />
-            </span>
-          </div>
-          {/* logica de filtro de busqueda*/}
+          <SidebarFilter />
+          <SidebarTags handleTagClick={handleFormSubmit} />
         </aside>
         {/* columna derecha */}
-        <div className="result-search-posts">
+        <div className="main-column">
           <ResultsSearchPosts />
         </div>
       </div>
@@ -43,4 +58,4 @@ const Results = (props) => {
   );
 };
 
-export default Results;
+export default withRouter(Results);

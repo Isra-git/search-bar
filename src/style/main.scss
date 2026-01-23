@@ -6,10 +6,14 @@ ghostwhite -> Texto plano
 darkslategray--> texto hover
 firebrick--> warning
 */
+
+// --- MIXINS ---
 @mixin texto_busqueda {
   font-size: 1.6rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+// --- BASE STYLES ---
 html {
   font-size: 62.5%; // 1rem is 10px
   box-sizing: border-box;
@@ -18,8 +22,7 @@ html {
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  //background-color: darkslategrey;
-  color: white; //ghostwhite;
+  color: white;
 }
 
 body {
@@ -37,27 +40,28 @@ body {
   font-family: "montserrat";
 }
 
+// --- MAIN LAYOUT ---
+
 /* -- Contentedor principal--*/
 .app-wrapper {
   overflow-x: hidden;
   font-weight: normal;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
 
-  // altura y alineacion
-  min-height: 80vh;
+  // Layout & Alignment
+  min-height: 85vh;
   width: 80vw;
-  margin: 10vh auto; // Centrado vertical con 5% de la pantalla
+  margin: 3vh auto;
   padding: 60px 40px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start; /* CAMBIO NECESARIO: flex-start evita el salto vertical */
+  align-items: center;
 
-  // Glassmorphism effect - Unificado
-  //background: rgba(47, 79, 79, 0.8); // Un poco más opaco para dar solidez
+  // Glassmorphism effect
   background: rgba(112, 128, 144, 0.8);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -69,11 +73,13 @@ body {
   .component-wrapper {
     display: grid;
     grid-template-rows: auto auto auto;
-    row-gap: 60px; // Separación equilibrada entre componentes
+    row-gap: 60px;
     place-items: center;
     text-align: center;
     width: 100%;
   }
+
+  // --- COMPONENTS ---
 
   /* -- componente logo -- */
   .logo-main {
@@ -88,11 +94,12 @@ body {
     }
 
     .logo-title {
-      font-size: 3rem; // Un poco más grande para equilibrio
+      font-size: 3rem;
       font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
         sans-serif;
       font-weight: 600;
       padding: 5px;
+      letter-spacing: 2px;
     }
 
     a {
@@ -188,35 +195,35 @@ body {
     }
   }
 
-  /*------------inicio resultSearchPosts*/
-
-  .results-search-posts {
+  /*------------inicio resultSearchPosts (Estilos de lista y cards) */
+  .results-posts-list {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 25px; // Aumentamos el espacio entre tarjetas
-    //padding: 20px;
+    gap: 25px;
+    width: 100%;
+    max-width: 800px;
 
-    // spinner
+    // Loader & Spinner
     .results-loading {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 50px;
-      color: #ffffff; // Texto en blanco para que resalte
+      justify-content: flex-start;
+      padding-top: 100px;
+      width: 100%;
+      color: #ffffff;
 
       .spinner {
         width: 50px;
         height: 50px;
-        border: 5px solid rgba(255, 255, 255, 0.1); // Círculo de fondo tenue
-        border-top: 5px solid #ffcc00; // El color destacado que usamos en los títulos
+        border: 5px solid rgba(255, 255, 255, 0.1);
+        border-top: 5px solid #ffcc00;
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin-bottom: 20px;
       }
     }
 
-    // Definición de la animación
     @keyframes spin {
       0% {
         transform: rotate(0deg);
@@ -225,14 +232,13 @@ body {
         transform: rotate(360deg);
       }
     }
-    // fin spinner
 
+    // Post Card
     .result-post-card {
-      // 1. Tarjeta Transparente (Glassmorphism)
-      background: rgba(255, 255, 255, 0.1); // Fondo muy suave
-      backdrop-filter: blur(10px); // Efecto de desenfoque detrás
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2); // Borde sutil
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       padding: 20px;
       transition: all 0.3s ease;
@@ -248,9 +254,8 @@ body {
         justify-content: space-between;
         align-items: center;
         margin-bottom: 12px;
-        // 2. Letra un poco más grande en la info secundaria
         font-size: 0.95rem;
-        color: #eee; // Color claro para fondo oscuro o translúcido
+        color: #eee;
       }
 
       &__author {
@@ -261,22 +266,19 @@ body {
         color: #ffffff;
 
         .icon-author {
-          color: #4682b4; // Darkturquoise destacado
+          color: #4682b4;
           font-size: 1.2rem;
-          // opacity: 0.7;
         }
       }
 
       &__stats {
         display: flex;
         gap: 15px;
-        //opacity: 0.9;
       }
 
       &__title {
-        // 3. Título con color que destaque y letra más grande
         a {
-          font-size: 1.4rem; // Tamaño aumentado
+          font-size: 1.4rem;
           font-weight: 700;
           color: #2f4f4f;
           text-decoration: none;
@@ -284,26 +286,23 @@ body {
           transition: color 0.2s;
 
           &:hover {
-            //opacity: 0.8;
-            color: #f0f0f0; // Cambia a blanco al pasar el ratón
-            //text-shadow: 0 0 3px rgba(255, 204, 0, 0.6);
+            color: #f0f0f0;
           }
         }
       }
     }
   }
-  /*  division en dos columnas*/
+
   /* --- Layout de Dos Columnas para Resultados --- */
   .results-content-container {
     display: grid;
-    // Definimos 250px para el lateral y el resto (1fr) para los posts
     grid-template-columns: 250px 1fr 250px;
     gap: 30px;
     width: 100%;
     max-width: 1400px;
-    margin: 0 auto;
-    margin-top: 40px;
+    margin: 40px auto 0;
     align-items: start;
+    min-height: 100vh;
 
     /* La columna lateral */
     .results-sidebar {
@@ -315,40 +314,151 @@ body {
       padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
+
+      position: sticky;
+      top: 20px;
       height: fit-content;
 
-      .sidebar-title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-bottom: 20px;
-        color: #daa520;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+      .sidebar-flex {
         display: flex;
-        justify-content: space-around;
-        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 25px;
+
+        .sidebar-item {
+          width: 100%;
+
+          .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: whitesmoke;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+          }
+        }
+
+        .sidebar-options {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+
+          .sidebar-option-row {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+
+            span {
+              transition: all 0.3s ease;
+              cursor: pointer;
+
+              &:hover {
+                color: darkslategrey;
+                font-weight: 700;
+                transform: translateX(3px);
+              }
+            }
+          }
+        }
       }
     }
 
-    /* La columna de los resultados (donde ya tienes tus tarjetas) */
-    .result-search-posts {
+    /* La columna de los resultados (Columna fija) */
+    .main-column {
       grid-column: 2;
       width: 100%;
       display: flex;
       justify-content: center;
-      .results-search-posts {
-        max-width: 800px; // Controla el ancho de las tarjetas para que no se estiren demasiado
-        width: 100%;
-      }
-
-      //margin-top: 0; // Quitamos el margen superior que tenías para que alinee con el sidebar
+      align-items: flex-start;
+      min-height: 80vh;
     }
-    /* Creamos un espacio vacío a la derecha para equilibrar el peso visual */
+
     &::after {
       content: "";
       grid-column: 3;
       width: 250px;
     }
   }
+
+  /* --- RESPONSIVE QUERIES --- */
+
+  // Tablets (iPad, etc.)
+  @media (max-width: 1024px) {
+    width: 90vw;
+    padding: 40px 25px;
+
+    .results-content-container {
+      // Quitamos la columna vacía de la derecha para dar más espacio
+      grid-template-columns: 220px 1fr;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  // Mobile Large & Tablets Vertical
+  @media (max-width: 768px) {
+    width: 95vw;
+    margin: 5vh auto;
+    padding: 30px 15px;
+
+    .logo-main .logo-title {
+      font-size: 2.2rem;
+    }
+
+    .component-wrapper {
+      row-gap: 40px;
+    }
+
+    .recent-posts__posts {
+      grid-template-columns: 1fr; // Una columna en Recent Posts
+      row-gap: 15px;
+    }
+
+    .results-content-container {
+      grid-template-columns: 1fr; // Una columna para Sidebar y Resultados
+
+      .results-sidebar {
+        grid-column: 1;
+        width: 100%;
+        position: static;
+      }
+
+      .main-column {
+        grid-column: 1;
+      }
+    }
+  }
+
+  // Mobile Small
+  @media (max-width: 480px) {
+    border-radius: 15px; // Esquinas menos redondeadas en pantallas muy pequeñas
+
+    .search-bar input {
+      font-size: 1.4rem;
+      min-height: 45px;
+    }
+
+    .result-post-card {
+      padding: 15px;
+
+      &__meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
+  }
+
   /*------------fin resultSearchPosts*/
 }
