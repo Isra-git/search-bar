@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //  importamos redux
 import { useSelector } from "react-redux";
@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 // importamos las acciones
 import * as actions from "../actions";
 
-// importamos el icono de react-icons
-import { FaUserPen } from "react-icons/fa6";
+// importamos el componente de renderizado de las  tarjetas
+import PostItem from "./PostItem";
 
 const resultsSearchPosts = (props) => {
   // traemos los resultados
@@ -62,31 +62,7 @@ const resultsSearchPosts = (props) => {
     <div className="results-posts-list">
       {/*  Usamos .map() para iterar sobre los resultados */}
       {sortedPosts.map((post) => {
-        return (
-          <div key={post.objectID} className="result-post-card">
-            {/* Línea superior: Autor e Info */}
-            <div className="result-post-card__meta">
-              <div className="result-post-card__author">
-                <FaUserPen className="icon-author" />
-                {/* Usamos fallback para el autor por si la API cambia el campo */}
-                <span>{post.author || post.by || "Anónimo"}</span>
-              </div>
-
-              <div className="result-post-card__stats">
-                <span>{post.num_comments || 0} comments</span>
-                <span className="divider">|</span>
-                <span>{post.points || 0} points</span>
-              </div>
-            </div>
-
-            {/* Línea inferior: Título */}
-            <div className="result-post-card__title">
-              <a href={post.url} target="_blank" rel="noopener noreferrer">
-                {post.title || post.story_title || "Ver historia"}
-              </a>
-            </div>
-          </div>
-        );
+        return <PostItem key={post.objectID} post={post} />;
       })}
     </div>
   );

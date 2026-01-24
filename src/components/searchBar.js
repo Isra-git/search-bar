@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useEffectEvent } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // importamos redux
 import { Field, reduxForm } from "redux-form";

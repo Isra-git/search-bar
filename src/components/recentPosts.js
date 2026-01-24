@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 // importamos las acciones
 import * as actions from "../actions";
 
+// icono posts
+import { BsSignpostSplit } from "react-icons/bs";
+
 let RecentPosts = (props) => {
   //creamos el dispach, para disparar la accion
   const dispatch = useDispatch();
@@ -33,7 +36,12 @@ let RecentPosts = (props) => {
   return (
     <div className="recent-posts">
       <div className="recent-posts__wrapper">
-        <div className="recent-posts__heading">Recent Posts</div>
+        <div className="recent-posts__heading">
+          Recent Posts{" "}
+          <span>
+            <BsSignpostSplit size={30} />
+          </span>
+        </div>
         <div className="recent-posts__posts">{renderRecentPosts()}</div>
       </div>
     </div>
