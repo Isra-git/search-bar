@@ -9,7 +9,8 @@ const DefinePlugin = require("webpack/lib/DefinePlugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+//const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 
 module.exports = webpackMerge(webpackCommon, {
@@ -26,44 +27,43 @@ module.exports = webpackMerge(webpackCommon, {
 
     chunkFilename: "[id]-[chunkhash].js",
 
-    publicPath: "/"
+    publicPath: "/",
   },
 
   module: {
     rules: [
       {
         test: /\.s?css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                sourceMap: true,
-                importLoaders: 2
-              }
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+              importLoaders: 2,
             },
-            {
-              loader: "postcss-loader",
-              options: {
-                config: {
-                  path: path.resolve(__dirname, "postcss.config.js")
-                },
-                sourceMap: true
-              }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              config: {
+                path: path.resolve(__dirname, "postcss.config.js"),
+              },
+              sourceMap: true,
             },
-            {
-              loader: "sass-loader",
-              options: {
-                outputStyle: "expanded",
-                sourceMap: true,
-                sourceMapContents: true
-              }
-            }
-          ]
-        })
-      }
-    ]
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              outputStyle: "expanded",
+              sourceMap: true,
+              sourceMapContents: true,
+              implementation: require("sass"), // Esto fuerza el uso de Dart Sass
+            },
+          },
+        ],
+      },
+    ],
   },
 
   plugins: [
@@ -81,45 +81,47 @@ module.exports = webpackMerge(webpackCommon, {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     new CopyWebpackPlugin([{ from: path.resolve(__dirname, "../static") }], {
-      ignore: ["index.html", "favicon.ico"]
+      ignore: ["index.html", "favicon.ico"],
     }),
     new CleanWebpackPlugin(["dist"], {
       root: path.resolve(__dirname, ".."),
-      exclude: ".gitignore"
+      exclude: ".gitignore",
     }),
     new DefinePlugin({
       "process.env": {
-        NODE_ENV: '"production"'
-      }
+        NODE_ENV: '"production"',
+      },
     }),
-    new ExtractTextPlugin("[name]-[chunkhash].min.css"),
+    new MiniCssExtractPlugin({
+      filename: "[name]-[chunkhash].min.css",
+    }),
     new UglifyJsPlugin({
       uglifyOptions: {
         compress: {
           ie8: true,
-          warnings: false
+          warnings: false,
         },
         mangle: {
-          ie8: true
+          ie8: true,
         },
         output: {
           comments: false,
-          ie8: true
-        }
+          ie8: true,
+        },
       },
-      sourceMap: true
+      sourceMap: true,
     }),
     new LoaderOptionsPlugin({
       options: {
         context: "/",
         sassLoader: {
-          includePaths: [path.resolve(__dirname, "../src")]
-        }
-      }
-    })
-  ]
+          includePaths: [path.resolve(__dirname, "../src")],
+        },
+      },
+    }),
+  ],
 });
