@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import * as actions from "../actions";
 
 // importamos el componente de renderizado de las  tarjetas
-import PostItem from "./PostItem";
+import PostItem from "./postItem";
 
 // logo no hay resultados
 import { BsEmojiSmileUpsideDown } from "react-icons/bs";
