@@ -12,16 +12,19 @@ const Home = (props) => {
   // creamos dispatch
   const dispatch = useDispatch();
 
-  const handleSearchSubmit = (query) => {
+  const handleSearchSubmit = (values) => {
     // if (event) event.preventDefault();
-    console.log("HandleSubmit for query: ", query);
+    console.log("HandleSubmit for query: ", values);
+
+    // desestructuramos el valor de la busqueda para añadirlo a history
+    const { query } = values;
 
     // disparamos la accion de busqueda con la {query} del usuario
-    dispatch(actions.fetchResultPosts(query));
+    dispatch(actions.fetchResultPosts(values));
 
     //Navegar a /results, si no estamos en ella
     if (props.location.pathname !== "/results") {
-      props.history.push("/results");
+      props.history.push(`/results?query=${query}`);
     }
   };
   return (

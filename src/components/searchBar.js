@@ -15,7 +15,7 @@ const renderInput = (field) => {
       {...field.input}
       ref={inputRef}
       type="text"
-      placeholder="Search storys in hacker news.."
+      placeholder="&#128269; Search storys in hacker news.."
       onChange={(event) => {
         setQuery(event.target.value);
         field.input.onChange(event);

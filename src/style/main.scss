@@ -331,6 +331,23 @@ body {
         width: 100%;
         max-width: 800px;
 
+        .results-empty {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 50px;
+          margin-top: 35px;
+
+          p {
+            font-size: 1.5rem;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+            svg {
+              color: #9d4f4f;
+            }
+          }
+        }
         // Loader & Spinner
         .results-loading {
           display: flex;

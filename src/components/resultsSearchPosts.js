@@ -9,6 +9,9 @@ import * as actions from "../actions";
 // importamos el componente de renderizado de las  tarjetas
 import PostItem from "./PostItem";
 
+// logo no hay resultados
+import { BsEmojiSmileUpsideDown } from "react-icons/bs";
+
 const resultsSearchPosts = (props) => {
   // traemos los resultados
   const resultPosts = useSelector((state) => state.posts.resultsPosts);
@@ -50,8 +53,11 @@ const resultsSearchPosts = (props) => {
   if (!resultPosts || resultPosts.length === 0) {
     return (
       <div className="results-posts-list">
-        <div className="results-empty">
+        <div className="results-empty" style={{ fontSize: "1.5rem" }}>
           <p>No hay resultados para mostrar. Intenta buscar algo arriba.</p>
+          <p>
+            <BsEmojiSmileUpsideDown size={200} />
+          </p>
         </div>
       </div>
     );
