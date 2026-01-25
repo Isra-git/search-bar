@@ -16,7 +16,7 @@ const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 module.exports = webpackMerge(webpackCommon, {
   bail: true,
 
-  devtool: "source-map",
+  devtool: "false",
   mode: "production",
   output: {
     path: path.resolve(__dirname, "../dist"),
@@ -113,7 +113,7 @@ module.exports = webpackMerge(webpackCommon, {
           ie8: true,
         },
       },
-      sourceMap: true,
+      sourceMap: false,
     }),
     new LoaderOptionsPlugin({
       options: {
